@@ -16,7 +16,6 @@ if(databaseConnectionString == null)
 
 SQLiteInitializer.InitDb(databaseConnectionString);
 
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -26,6 +25,15 @@ builder.Services.AddSingleton<IMatchRepository, MatchRepository>();
 builder.Services.AddSingleton<IPlayerRepository, PlayerRepository>();
 builder.Services.AddSingleton<ILeaderBoardService, LeaderboardService>();
 
+builder.Services.AddCors(opts =>
+{
+    opts.AddPolicy(name: "WildcardPolicy", policy =>
+    {
+        policy.AllowAnyOrigin();
+        policy.AllowAnyMethod();
+        policy.AllowAnyHeader();
+    });
+});
 
 var app = builder.Build();
 
@@ -35,6 +43,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("WildcardPolicy");
+
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
