@@ -1,4 +1,6 @@
 let baseUrl = "http://localhost:5169"; 
+let playerList = [];
+let matchList = [];
 
 document.getElementById('createMatchForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -41,3 +43,39 @@ document.getElementById('getAllPlayers').addEventListener('click', function() {
             playersList.innerHTML = players.map(player => `<div>Player ID: ${player.id}, Name: ${player.name}</div>`).join('');
         });
 });
+
+function getAllMatches() {
+    fetch(`${baseUrl}/api/Leaderboard/matches/all`)
+        .then(response => response.json())
+        .then(matches => {
+            const matchesList = document.getElementById('matchesList');
+            matches.forEach(match => {
+                let resolvedMatch = {winner: playerList.find(player => player.id === match.winnerId).name, 
+                    loser: playerList.find(player => player.id === match.loserId).name, 
+                    score: match.score}
+                matchesList.innerHTML += `<div>${resolvedMatch.winner} VS ${resolvedMatch.loser} Score: ${resolvedMatch.score} <b>WINNER: ${resolvedMatch.winner}</b> </div>`
+            })
+        });
+}
+
+function getAllPlayers() {
+    fetch(`${baseUrl}/api/Player/all`)
+        .then(response => response.json())
+        .then(players => {
+            const winnerDropdown = document.getElementById('winnerId');
+            const loserDropdown = document.getElementById('loserId');
+            let options = '<option value="">Select a Player</option>';  // Default option
+            playerList = players;
+            players.forEach(player => {
+                options += `<option value="${player.id}">${player.name}</option>`;
+            });
+            const playersList = document.getElementById('playersList');
+            playersList.innerHTML = players.map(player => `<div>Name: ${player.name} - Wins: ${player.matchesWon} Losses: ${player.matchesLost}</div>`).join('');
+            winnerDropdown.innerHTML = options;
+            loserDropdown.innerHTML = options;
+            console.log(players)
+        });
+}
+
+getAllPlayers();
+getAllMatches();

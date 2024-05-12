@@ -12,8 +12,12 @@
     <section>
         <h2>Create Match</h2>
         <form id="createMatchForm">
-            <input type="text" id="winnerId" placeholder="Winner ID">
-            <input type="text" id="loserId" placeholder="Loser ID">
+            <select id="winnerId">
+                <option value="">Select Winner</option>
+            </select>
+            <select id="loserId">
+                <option value="">Select Loser</option>
+            </select>
             <input type="text" id="score" placeholder="Score">
             <button type="submit">Create Match</button>
         </form>
