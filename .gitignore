@@ -396,3 +396,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/PING-PONG-API/PING-PONG-API/Properties/launchSettings.json
+/PING-PONG-API/PING-PONG-API/PING-PONG-API.http
+/PING-PONG-API/PING-PONG-API/leaderboard.db
+/PING-PONG-API/PING-PONG-API/appsettings.Development.json
