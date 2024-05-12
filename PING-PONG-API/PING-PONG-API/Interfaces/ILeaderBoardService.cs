@@ -7,5 +7,6 @@ namespace PING_PONG_API.Interfaces
     {
         Task<List<Match>?> GetAllMatchesAsync();
         Task<bool> RegisterNewMatchResultAsync(MatchDTO matchDto);
+        Task<Player?> RegisterPlayer(PlayerDTO playerDto);
     }
 }

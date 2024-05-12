@@ -1,4 +1,6 @@
-﻿namespace PING_PONG_API.Models
+﻿using PING_PONG_API.Domain.DTO;
+
+namespace PING_PONG_API.Models
 {
     public class Player
     {
@@ -14,6 +16,15 @@
             MatchesWon = matchesWon;
             MatchesLost = matchesLost;
         }
+
+        public Player(PlayerDTO player)
+        {
+            Id = Guid.NewGuid().ToString();
+            Name = player.Name;
+            MatchesWon = player.MatchesWon;
+            MatchesLost = player.MatchesLost;
+        }
+
         public Player() { }
     }
 }

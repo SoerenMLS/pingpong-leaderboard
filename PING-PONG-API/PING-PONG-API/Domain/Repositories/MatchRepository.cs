@@ -34,7 +34,7 @@ namespace PING_PONG_API.Domain.Repositories
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Failed to retrieve matches from the database.");
-                return null;  // Return an empty list on failure
+                return null;
             }
         }
 
@@ -42,15 +42,12 @@ namespace PING_PONG_API.Domain.Repositories
         {
             try
             {
-                var sql = "INSERT INTO Matches (WinnerId, LoserId, Score) " +
-                          "VALUES (@WinnerId, @LoserId, @Score);";
+                var sql = "INSERT INTO Matches (Id, WinnerId, LoserId, Score) " +
+                          "VALUES (@Id, @WinnerId, @LoserId, @Score);";
 
                 var rowsAffected = await _databaseConnection.ExecuteAsync(sql, match);
 
-                if (rowsAffected > 0)
-                    return true;
-                else
-                    return false;
+                return rowsAffected > 0;
             }
             catch (Exception ex)
             {
