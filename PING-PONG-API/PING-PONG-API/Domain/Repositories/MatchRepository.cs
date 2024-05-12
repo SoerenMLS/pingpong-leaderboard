@@ -7,21 +7,21 @@ namespace PING_PONG_API.Domain.Repositories
 {
     public class MatchRepository : IMatchRepository
     {
-        private readonly IDbConnection _databaseConnection;
+        private readonly IDbConnection _dbConnection;
         private readonly ILogger _logger;
 
         public MatchRepository(IDbConnection databaseConnection, ILogger<MatchRepository> logger)
         {
-            _databaseConnection = databaseConnection;
+            _dbConnection = databaseConnection;
             _logger = logger;
         }
 
         public async Task<List<Match>?> GetAllMatches()
-        {
+         {
             try
             {
                 var sql = "SELECT * FROM Matches;";
-                var matches = await _databaseConnection.QueryAsync<Match>(sql);
+                var matches = await _dbConnection.QueryAsync<Match>(sql);
 
                 if (matches is null)
                 {
@@ -45,7 +45,7 @@ namespace PING_PONG_API.Domain.Repositories
                 var sql = "INSERT INTO Matches (Id, WinnerId, LoserId, Score) " +
                           "VALUES (@Id, @WinnerId, @LoserId, @Score);";
 
-                var rowsAffected = await _databaseConnection.ExecuteAsync(sql, match);
+                var rowsAffected = await _dbConnection.ExecuteAsync(sql, match);
 
                 return rowsAffected > 0;
             }

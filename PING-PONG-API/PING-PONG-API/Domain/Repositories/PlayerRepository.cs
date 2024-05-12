@@ -16,6 +16,28 @@ namespace PING_PONG_API.Domain.Repositories
             _logger = logger;
         }
 
+        public async Task<List<Player>?> GetAllPlayers()
+        {
+            try
+            {
+                var sql = "SELECT * FROM Players;";
+                var players = await _dbConnection.QueryAsync<Player>(sql);
+
+                if (players is null)
+                {
+                    _logger.LogWarning("Failed fetch any players, players is null");
+                    return null;
+                }
+
+                return players.ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to retrieve players from the database.");
+                return null;
+            }
+        }
+
         public async Task<bool> RegisterPlayer(Player player)
         {
             _logger.LogInformation("Inserting player with name: {playerName} and id: {playerId} into DB", player.Name, player.Id);

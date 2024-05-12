@@ -20,14 +20,24 @@ namespace PING_PONG_API.Controllers
         public async Task<ActionResult<Player>> RegisterPlayer([FromBody] PlayerDTO playerDto)
         {
             var player = await _leaderBoardService.RegisterPlayer(playerDto);
+
             if (player is null)
                 return BadRequest();
 
-            return Ok(player);  
-
+            return Ok(player);
         }
 
+        [HttpGet("all")]
+        public async Task<ActionResult<List<Player>>> GetAllPlayers()
+        {
 
+            var players = await _leaderBoardService.GetAllPlayersAsync();
+
+            if (players is null)
+                return BadRequest();
+
+            return players;
+        }
 
     }
 }

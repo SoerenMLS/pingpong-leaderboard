@@ -49,6 +49,27 @@ namespace PING_PONG_API.Domain.Services
             }
         }
 
+        public async Task<List<Player>?> GetAllPlayersAsync()
+        {
+            try
+            {
+                var players = await _playerRepository.GetAllPlayers();
+
+                if(players is null)
+                {
+                    _logger.LogWarning("Failed to get players, players is null...");
+                    return null;
+                }
+
+                return players;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to get all players");
+                return null;
+            }
+        }
+
         public async Task<List<Match>?> GetAllMatchesAsync()
         {
             try
@@ -56,9 +77,12 @@ namespace PING_PONG_API.Domain.Services
                 var matches = await _matchRepository.GetAllMatches();
 
                 if (matches is null)
+                {
+                    _logger.LogWarning("Failed to get matches, matches is null...");
                     return null;
-                else
-                    return matches;
+                }
+
+                return matches;
             }
             catch (Exception ex)
             {

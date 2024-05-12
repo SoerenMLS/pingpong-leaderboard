@@ -36,7 +36,7 @@ namespace PING_PONG_API.Controllers
             if (matches is null)
                 return BadRequest();
 
-            return Ok(new());
+            return Ok(matches);
         }
 
     }
