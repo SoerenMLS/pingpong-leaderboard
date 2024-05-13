@@ -2,6 +2,69 @@ let baseUrl = "http://localhost:5169";
 let playerList = [];
 let matchList = [];
 
+function getAllMatches() {
+    fetch(`${baseUrl}/api/Leaderboard/matches/all`)
+        .then(response => response.json())
+        .then(matches => {
+            const matchesList = document.getElementById('matchesList');
+            let tableHTML = `<table>
+                                <tr>
+                                    <th>Winner</th>
+                                    <th>Loser</th>
+                                    <th>Score</th>
+                                    <th>Winner</th>
+                                </tr>`;
+            matches.forEach(match => {
+                let resolvedMatch = {
+                    winner: playerList.find(player => player.id === match.winnerId).name,
+                    loser: playerList.find(player => player.id === match.loserId).name,
+                    score: match.score
+                }
+                tableHTML += `<tr>
+                                <td>${resolvedMatch.winner}</td>
+                                <td>${resolvedMatch.loser}</td>
+                                <td>${resolvedMatch.score}</td>
+                                <td><b>${resolvedMatch.winner}</b></td>
+                              </tr>`;
+            });
+            tableHTML += '</table>';
+            matchesList.innerHTML = tableHTML;
+        });
+}
+
+function getAllPlayers() {
+    fetch(`${baseUrl}/api/Player/all`)
+        .then(response => response.json())
+        .then(players => {
+            const playersList = document.getElementById('playersList');
+            let tableHTML = `<table>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Wins</th>
+                                    <th>Losses</th>
+                                </tr>`;
+            playerList = players; // Update playerList for global access
+            players.forEach(player => {
+                tableHTML += `<tr>
+                                <td>${player.name}</td>
+                                <td>${player.matchesWon}</td>
+                                <td>${player.matchesLost}</td>
+                              </tr>`;
+            });
+            tableHTML += '</table>';
+            playersList.innerHTML = tableHTML;
+
+            const winnerDropdown = document.getElementById('winnerId');
+            const loserDropdown = document.getElementById('loserId');
+            let options = '<option value="">Select a Player</option>'; // Default option
+            players.forEach(player => {
+                options += `<option value="${player.id}">${player.name}</option>`;
+            });
+            winnerDropdown.innerHTML = options;
+            loserDropdown.innerHTML = options;
+        });
+}
+
 document.getElementById('createMatchForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const winnerId = document.getElementById('winnerId').value;
@@ -13,6 +76,8 @@ document.getElementById('createMatchForm').addEventListener('submit', function(e
         body: JSON.stringify({ winnerId, loserId, score })
     }).then(response => response.json())
       .then(data => console.log(data));
+    
+    getAllMatches();
 });
 
 document.getElementById('registerPlayerForm').addEventListener('submit', function(e) {
@@ -24,58 +89,9 @@ document.getElementById('registerPlayerForm').addEventListener('submit', functio
         body: JSON.stringify({ name })
     }).then(response => response.json())
       .then(data => console.log(data));
+    
+    getAllPlayers();
 });
-
-document.getElementById('getAllMatches').addEventListener('click', function() {
-    fetch(`${baseUrl}/api/Leaderboard/matches/all`)
-        .then(response => response.json())
-        .then(matches => {
-            const matchesList = document.getElementById('matchesList');
-            matchesList.innerHTML = matches.map(match => `<div>Match ID: ${match.id}, Score: ${match.score}</div>`).join('');
-        });
-});
-
-document.getElementById('getAllPlayers').addEventListener('click', function() {
-    fetch(`${baseUrl}/api/Player/all`)
-        .then(response => response.json())
-        .then(players => {
-            const playersList = document.getElementById('playersList');
-            playersList.innerHTML = players.map(player => `<div>Player ID: ${player.id}, Name: ${player.name}</div>`).join('');
-        });
-});
-
-function getAllMatches() {
-    fetch(`${baseUrl}/api/Leaderboard/matches/all`)
-        .then(response => response.json())
-        .then(matches => {
-            const matchesList = document.getElementById('matchesList');
-            matches.forEach(match => {
-                let resolvedMatch = {winner: playerList.find(player => player.id === match.winnerId).name, 
-                    loser: playerList.find(player => player.id === match.loserId).name, 
-                    score: match.score}
-                matchesList.innerHTML += `<div>${resolvedMatch.winner} VS ${resolvedMatch.loser} Score: ${resolvedMatch.score} <b>WINNER: ${resolvedMatch.winner}</b> </div>`
-            })
-        });
-}
-
-function getAllPlayers() {
-    fetch(`${baseUrl}/api/Player/all`)
-        .then(response => response.json())
-        .then(players => {
-            const winnerDropdown = document.getElementById('winnerId');
-            const loserDropdown = document.getElementById('loserId');
-            let options = '<option value="">Select a Player</option>';  // Default option
-            playerList = players;
-            players.forEach(player => {
-                options += `<option value="${player.id}">${player.name}</option>`;
-            });
-            const playersList = document.getElementById('playersList');
-            playersList.innerHTML = players.map(player => `<div>Name: ${player.name} - Wins: ${player.matchesWon} Losses: ${player.matchesLost}</div>`).join('');
-            winnerDropdown.innerHTML = options;
-            loserDropdown.innerHTML = options;
-            console.log(players)
-        });
-}
 
 getAllPlayers();
 getAllMatches();

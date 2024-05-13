@@ -34,7 +34,7 @@ builder.Services.AddCors(opts =>
         policy.AllowAnyHeader();
     });
 });
-
+    
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

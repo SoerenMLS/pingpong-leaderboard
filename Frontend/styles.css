@@ -1,10 +1,110 @@
+/* General body and font styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
     padding: 20px;
-    line-height: 1.6;
 }
 
-input, button {
-    margin: 10px 0;
+h1, h2 {
+    color: #2a2f36;
+}
+
+h1 {
+    text-align: center;
+}
+
+/* Section and form layout */
+section {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+input[type="text"], select.form-control {
+    width: calc(100% - 22px); /* Adjust width considering padding and border */
     padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Includes padding and border in the element's total width */
+}
+
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Dashboard container */
+.dashboard-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+section {
+    flex: 1;
+    margin: 10px;
+}
+
+/* Responsive design tweaks */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+}
+
+/* General table styling */
+table {
+    width: 100%; /* Full width to fill the container */
+    border-collapse: collapse; /* Collapses the border between cells */
+    margin: 10px 0; /* Adds vertical space around the table */
+    background-color: #fff; /* White background for readability */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+}
+
+th, td {
+    text-align: left; /* Aligns text to the left of each cell */
+    padding: 12px 15px; /* Adds padding inside each cell for better spacing */
+    border-bottom: 1px solid #ddd; /* Light grey border for each row */
+}
+
+th {
+    background-color: #4CAF50; /* Green background for headers */
+    color: white; /* White text color */
+    font-weight: bold; /* Makes header text bold */
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Zebra striping for rows */
+}
+
+tr:hover {
+    background-color: #ddd; /* Changes background on row hover for interactivity */
+}
+
+/* Enhancements for responsive tables */
+@media (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto; /* Allows table to scroll horizontally on small screens */
+    }
 }

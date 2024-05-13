@@ -8,21 +8,6 @@
 </head>
 <body>
     <h1>Ping Pong Leaderboard</h1>
-
-    <section>
-        <h2>Create Match</h2>
-        <form id="createMatchForm">
-            <select id="winnerId">
-                <option value="">Select Winner</option>
-            </select>
-            <select id="loserId">
-                <option value="">Select Loser</option>
-            </select>
-            <input type="text" id="score" placeholder="Score">
-            <button type="submit">Create Match</button>
-        </form>
-    </section>
-
     <section>
         <h2>Register Player</h2>
         <form id="registerPlayerForm">
@@ -30,21 +15,34 @@
             <button type="submit">Register Player</button>
         </form>
     </section>
-
-    <section>
-        <button id="getAllMatches">Get All Matches</button>
-        <button id="getAllPlayers">Get All Players</button>
+    <section class="match-reg">
+        <h2>Register Match</h2>
+        <form id="createMatchForm">
+            <label for="winnerId">Choose a winner</label>
+            <select id="winnerId" class="form-control">
+                <option value="">Select Winner</option>
+            </select>
+            <label for="loserId">Choose a Loser</label>
+            <select id="loserId" class="form-control">
+                <option value="">Select Loser</option>
+            </select>
+            <input type="text" id="score" class="form-control" placeholder="Score">
+            <button type="submit" class="form-control">Create Match</button>
+        </form>
     </section>
 
-    <section>
-        <h2>Matches</h2>
-        <div id="matchesList"></div>
-    </section>
-
-    <section>
-        <h2>Players</h2>
-        <div id="playersList"></div>
-    </section>
+    <div class="dashboard-container">
+        <section>
+            <h2>Matches</h2>
+            <div id="matchesList"></div>
+        </section>
+    
+        <section>
+            <h2>Players</h2>
+            <div id="playersList"></div>
+        </section>
+    </div>
+    
 
     <script src="scripts.js"></script>
 </body>
