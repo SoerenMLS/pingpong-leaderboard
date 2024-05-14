@@ -1,4 +1,5 @@
-let baseUrl = "http://localhost:5169"; 
+const port = 80;
+let baseUrl = `http://localhost:${port}`;
 let playerList = [];
 let matchList = [];
 
