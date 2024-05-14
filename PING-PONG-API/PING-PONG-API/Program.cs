@@ -44,9 +44,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseStaticFiles();
 app.UseCors("WildcardPolicy");
-
-
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

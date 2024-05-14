@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ping Pong Leaderboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Ping Pong Leaderboard</h1>
+    <section>
+        <h2>Register Player</h2>
+        <form id="registerPlayerForm">
+            <input type="text" id="playerName" placeholder="Player Name">
+            <button type="submit">Register Player</button>
+        </form>
+    </section>
+    <section class="match-reg">
+        <h2>Register Match</h2>
+        <form id="createMatchForm">
+            <label for="winnerId">Choose a winner</label>
+            <select id="winnerId" class="form-control">
+                <option value="">Select Winner</option>
+            </select>
+            <label for="loserId">Choose a Loser</label>
+            <select id="loserId" class="form-control">
+                <option value="">Select Loser</option>
+            </select>
+            <input type="text" id="score" class="form-control" placeholder="Score">
+            <button type="submit" class="form-control">Create Match</button>
+        </form>
+    </section>
+
+    <div class="dashboard-container">
+        <section>
+            <h2>Matches</h2>
+            <div id="matchesList"></div>
+        </section>
+    
+        <section>
+            <h2>Players</h2>
+            <div id="playersList"></div>
+        </section>
+    </div>
+    
+
+    <script src="scripts.js"></script>
+</body>
+</html>
